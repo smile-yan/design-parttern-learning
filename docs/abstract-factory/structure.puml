@@ -1,73 +1,70 @@
 @startuml
 
-'left to right direction
-
-abstract class Furniture {
-  {abstract} +assemble(): void
+interface CPU {
+    + process()
 }
 
-class WoodenFurniture {
-  +assemble(): void
+interface Memory {
+    + store()
 }
 
-class ModernFurniture {
-  +assemble(): void
+interface GraphicsCard {
+    + display()
 }
 
-abstract class Paint {
-  {abstract} +apply(): void
+interface ComputerFactory {
+    + createCPU(): CPU
+    + createMemory(): Memory
+    + createGraphicsCard(): GraphicsCard
 }
 
-class DarkPaint {
-  +apply(): void
+class IntelCPU {
+    + process()
 }
 
-class LightPaint {
-  +apply(): void
+class KingstonMemory {
+    + store()
 }
 
-abstract class DecorationFactory {
-  {abstract} +createFurniture(): Furniture
-  {abstract} +createPaint(): Paint
+class NVIDIAGraphicsCard {
+    + display()
 }
 
-class WoodenDecorationFactory {
-  +createFurniture(): WoodenFurniture
-  +createPaint(): DarkPaint
+class IntelComputerFactory {
+    + createCPU(): CPU
+    + createMemory(): Memory
+    + createGraphicsCard(): GraphicsCard
 }
 
-class ModernDecorationFactory {
-  +createFurniture(): ModernFurniture
-  +createPaint(): LightPaint
+class AMDCPU {
+    + process()
 }
 
-class Client {
-  -factory: DecorationFactory
-
-  +setFactory(factory: DecorationFactory): void
-  +decorate(): void
+class CorsairMemory {
+    + store()
 }
 
-DecorationFactory <|-- WoodenDecorationFactory
-DecorationFactory <|-- ModernDecorationFactory
+class AMDGraphicsCard {
+    + display()
+}
 
-Furniture <|-- WoodenFurniture
-Furniture <|-- ModernFurniture
+class AMDComputerFactory {
+    + createCPU(): CPU
+    + createMemory(): Memory
+    + createGraphicsCard(): GraphicsCard
+}
 
-Paint <|-- DarkPaint
-Paint <|-- LightPaint
+ComputerFactory <|.. IntelComputerFactory
+ComputerFactory <|.. AMDComputerFactory
 
-DecorationFactory --> Furniture
-DecorationFactory --> Paint
+ComputerFactory <|-- IntelComputerFactory
+CPU <|.. IntelCPU
+Memory <|.. KingstonMemory
+GraphicsCard <|.. NVIDIAGraphicsCard
 
-WoodenDecorationFactory --> WoodenFurniture
-WoodenDecorationFactory --> DarkPaint
-
-ModernDecorationFactory --> ModernFurniture
-ModernDecorationFactory --> LightPaint
-
-Client --> DecorationFactory
-Client --> Furniture
-Client --> Paint
+ComputerFactory <|-- AMDComputerFactory
+CPU <|.. AMDCPU
+Memory <|.. CorsairMemory
+GraphicsCard <|.. AMDGraphicsCard
 
 @enduml
