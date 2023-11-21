@@ -1,0 +1,73 @@
+@startuml
+
+'left to right direction
+
+abstract class Furniture {
+  {abstract} +assemble(): void
+}
+
+class WoodenFurniture {
+  +assemble(): void
+}
+
+class ModernFurniture {
+  +assemble(): void
+}
+
+abstract class Paint {
+  {abstract} +apply(): void
+}
+
+class DarkPaint {
+  +apply(): void
+}
+
+class LightPaint {
+  +apply(): void
+}
+
+abstract class DecorationFactory {
+  {abstract} +createFurniture(): Furniture
+  {abstract} +createPaint(): Paint
+}
+
+class WoodenDecorationFactory {
+  +createFurniture(): WoodenFurniture
+  +createPaint(): DarkPaint
+}
+
+class ModernDecorationFactory {
+  +createFurniture(): ModernFurniture
+  +createPaint(): LightPaint
+}
+
+class Client {
+  -factory: DecorationFactory
+
+  +setFactory(factory: DecorationFactory): void
+  +decorate(): void
+}
+
+DecorationFactory <|-- WoodenDecorationFactory
+DecorationFactory <|-- ModernDecorationFactory
+
+Furniture <|-- WoodenFurniture
+Furniture <|-- ModernFurniture
+
+Paint <|-- DarkPaint
+Paint <|-- LightPaint
+
+DecorationFactory --> Furniture
+DecorationFactory --> Paint
+
+WoodenDecorationFactory --> WoodenFurniture
+WoodenDecorationFactory --> DarkPaint
+
+ModernDecorationFactory --> ModernFurniture
+ModernDecorationFactory --> LightPaint
+
+Client --> DecorationFactory
+Client --> Furniture
+Client --> Paint
+
+@enduml
